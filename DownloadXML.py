@@ -23,12 +23,27 @@ class DownloadXML:
         self.url = url
         self.filename = filename
 
-    def Download(self):
+    def Download(self, url = None, filename = None):
+        if url is None:
+            url = self.url
+        if filename is None:
+            filename = self.filename
+            
         time.sleep(2)
         print ("Download Starting!")
-        print (self.url)
-        urlretrieve(self.url, self.filename)
+        print (url)
+        urlretrieve(url, filename)
         print ("Download Complete!")
+
+    def DownloadAll(self, url, filename, countto):
+        """Returns the number of files download."""
+        count = 1
+        print ("Download All Starting!")
+        while (count <= countto):
+            self.Download(url + str(count), filename + str(count) + ".xml")
+            count += 1
+        print ("Download All Complete!")
+        return count
 
 if __name__ == "__main__":
     print ("Testing... DownloadXML Class")
