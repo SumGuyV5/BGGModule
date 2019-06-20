@@ -45,9 +45,19 @@ class ReadXML:
             playsDataset = self._ReadXMLPlays(play)
             self._ReadXMLPlayers(play, playsDataset)
             self.plays.append(playsDataset)
+
+    def ReadXMLAll(self, filename, countto):
+        """Filename only not extention."""
+        count = 1
+        print ("Reading All XML files...")
+        while (count <= countto):
+            self.ReadXMLFile(filename + str(count) + ".xml")
+            count += 1
+        print ("Done Reading All XML files...")
                 
     def _ReadXMLPlays(self, dom):
         rtn = PlaysDataset()
+        rtn.id = int(dom.attributes['id'].value)
         rtn.length = int(dom.attributes['length'].value)
         rtn.location = dom.attributes['location'].value
         rtn.incomplete = int(dom.attributes['incomplete'].value)
@@ -80,7 +90,7 @@ if __name__ == "__main__":
     print ("Testing... ReadXML Class")
     read = ReadXML()
 
-    read.ReadXMLFile(os.getcwd() + '\\..\\plays.xml')
+    read.ReadXMLFile(os.path.join(os.getcwd(), 'plays.xml'))
 
     for play in read.plays:
         print ("Name: " + play.gamename)

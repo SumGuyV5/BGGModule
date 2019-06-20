@@ -18,7 +18,7 @@ from urllib.request import urlretrieve
 import time
 
 class DownloadXML:
-    def __init__(self, url, filename):
+    def __init__(self, url = None, filename = None):
         """init the variables"""
         self.url = url
         self.filename = filename
@@ -36,14 +36,13 @@ class DownloadXML:
         print ("Download Complete!")
 
     def DownloadAll(self, url, filename, countto):
-        """Returns the number of files download."""
-        count = 1
+        ''' "url" = web url to the xml file
+            "filename" = the filename for the xml files, don't add .xml.
+            "coutto" how many xml files to download.'''
         print ("Download All Starting!")
-        while (count <= countto):
-            self.Download(url + str(count), filename + str(count) + ".xml")
-            count += 1
+        for i in range(1,countto):
+            self.Download(url + str(i), filename + str(i) + ".xml")
         print ("Download All Complete!")
-        return count
 
 if __name__ == "__main__":
     print ("Testing... DownloadXML Class")

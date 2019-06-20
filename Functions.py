@@ -13,35 +13,25 @@
 **  License:	    GNU GENERAL PUBLIC LICENSE Version 2	**
 **		    see license.txt for for details	        **
 ***************************************************************"""
+import os
 import sys
-import datetime
+import math
+
 sys.path.append('BGGModule.zip')
 
-from BGGModule.PlayerDataset import PlayerDataset
+from BGGModule.ReadXML import ReadXML
+from BGGModule.DownloadXML import DownloadXML
 
-class PlaysDataset:
-    def __init__(self):
-        self.id = 0
-        self.gamename = ""
-        self.length = 0
-        self.location = ""
-        self.incomplete = 0
-        self.nowinstate = 0
-        self.players = []
-        self._date = datetime.date.today()
 
-    def AddPlayer(self, player):
-        self.players.append(player)
+def PlayCount(username, pagesize):
+    filename = "totalplays.xml"
+    path = os.path.join(os.getcwd(), filename)
+    url = "http://www.boardgamegeek.com/xmlapi2/plays?username=" + username + "&pagesize=10"
+    if os.path.isfile(path) is False:
+        downloadXML = DownloadXML(url, filename)
+        downloadXML.Download()
 
-    def FindPlayerByName(self, name):
-        for i in range(len(self.players)):
-            if self.players[i].name == name:
-                return i
-        return -1
-
-    def date(self, string):
-        self._date = datetime.datetime.strptime(string, "%Y-%m-%d")
-        
-
-if __name__ == "__main__":
-    pass
+    readXML = ReadXML()
+    print (path)
+    readXML.ReadXMLFile(path)
+    return math.ceil(readXML.playcount / float(pagesize))
