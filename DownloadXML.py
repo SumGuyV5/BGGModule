@@ -40,7 +40,7 @@ class DownloadXML:
             "filename" = the filename for the xml files, don't add .xml.
             "coutto" how many xml files to download.'''
         print ("Download All Starting!")
-        for i in range(1,countto):
+        for i in range( 1, countto + 1):
             self.Download(url + str(i), filename + str(i) + ".xml")
         print ("Download All Complete!")
 
