@@ -50,7 +50,7 @@ class ReadXML:
         """Filename only not extention."""
         print ("Reading All XML files...")
         for i in range(1, countto + 1):
-            self.ReadXMLFile(filename + str(count) + ".xml")
+            self.ReadXMLFile(filename + str(i) + ".xml")
         print ("Done Reading All XML files...")
                 
     def _ReadXMLPlays(self, dom):
