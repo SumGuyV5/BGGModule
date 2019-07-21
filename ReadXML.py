@@ -5,55 +5,56 @@
 **  Copyright (C):  September 3, 2014 Richard W. Allen          **
 **  Date Started:   September 3, 2014                           **
 **  Date Ended:     June 12, 2019                               **
-**  Author:         Richardn W. Allen                           **
+**  Author:         Richard W. Allen                           **
 **  Webpage:        http://www.richardallenonline.com           **
 **  IDE:            IDLE 3.7.3                                  **
 **  Compiler:       Python 3.7.3                                **
-**  Langage:        Python 3.7.3				**
+**  Language:        Python 3.7.3				**
 **  License:	    GNU GENERAL PUBLIC LICENSE Version 2	**
 **		    see license.txt for for details	        **
 ***************************************************************"""
 import os
 import sys
-sys.path.append('BGGModule.zip')
 
 from BGGModule.PlaysDataset import PlaysDataset
 from BGGModule.PlayerDataset import PlayerDataset
 
-from xml.dom.minidom import parse, getDOMImplementation
+from xml.dom.minidom import parse
+
+sys.path.append('BGGModule.zip')
+
 
 class ReadXML:
     def __init__(self):
         self._dom = object
-
-        self.playcount = 0
-
+        self.play_count = 0
         self.plays = []
 
-    def ReadXMLFile(self, filename):
+    def read_xml_file(self, filename):
         try:
             self._dom = parse(filename)
-        except:
-            print ('File IO Error on file name ' + filename)
+        except IOError:
+            print(f'File IO Error on file name {filename}')
 
         plays_info = self._dom.getElementsByTagName("plays")
         for play_info in plays_info:
-            self.playcount = int(play_info.attributes['total'].value)
+            self.play_count = int(play_info.attributes['total'].value)
 
         plays = self._dom.getElementsByTagName("play")
-        for play in plays:
-            playsDataset = self._ReadXMLPlays(play)
-            self._ReadXMLPlayers(play, playsDataset)
-            self.plays.append(playsDataset)
+        for playy in plays:
+            playsdataset = self._read_xml_plays(playy)
+            self._read_xml_players(playy, playsdataset)
+            self.plays.append(playsdataset)
 
-    def ReadXMLAll(self, filename, countto):
-        """Filename only not extention."""
-        print ("Reading All XML files...")
+    def read_xml_all(self, filename, countto):
+        """Filename only no extension."""
+        print("Reading All XML files...")
         for i in range(1, countto + 1):
-            self.ReadXMLFile(filename + str(i) + ".xml")
-        print ("Done Reading All XML files...")
-                
-    def _ReadXMLPlays(self, dom):
+            self.read_xml_file(filename + str(i) + ".xml")
+        print("Done Reading All XML files...")
+
+    @staticmethod
+    def _read_xml_plays(dom):
         rtn = PlaysDataset()
         rtn.id = int(dom.attributes['id'].value)
         rtn.length = int(dom.attributes['length'].value)
@@ -64,15 +65,16 @@ class ReadXML:
         items = dom.getElementsByTagName("item")
         for item in items:
             rtn.gamename = item.attributes['name'].value
-        
+
         return rtn
-                
-    def _ReadXMLPlayers(self, dom, playsDataset):       
+
+    def _read_xml_players(self, dom, playsdataset):
         players = dom.getElementsByTagName("player")
         for player in players:
-            playsDataset.AddPlayer(self._LoadPlayers(player))
+            playsdataset.add_player(self._load_players(player))
 
-    def _LoadPlayers(self, player):
+    @staticmethod
+    def _load_players(player):
         rtn = PlayerDataset()
         rtn.username = player.attributes['username'].value
         rtn.name = player.attributes['name'].value
@@ -84,18 +86,16 @@ class ReadXML:
 
 
 if __name__ == "__main__":
-
-    print ("Testing... ReadXML Class")
+    print("Testing... ReadXML Class")
     read = ReadXML()
 
-    read.ReadXMLFile(os.path.join(os.getcwd(), 'plays.xml'))
+    read.read_xml_file(os.path.join(os.getcwd(), 'plays.xml'))
 
     for play in read.plays:
-        print ("Name: " + play.gamename)
+        print("Name: " + play.gamename)
         """ #print "Username: " + player.username
         print "Name: " + player.name
         print "Wins: " + str(player.wincount)
         print "Loss: " + str(player.losscount)
         print "Total Games Played: " + str(player.wincount + player.losscount)
         print """
-        
