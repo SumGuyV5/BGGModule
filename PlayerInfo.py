@@ -19,9 +19,9 @@ sys.path.append('BGGModule.zip')
 
 
 class PlayerInfo:
-    def __init__(self, name, username):
-        self.name = name
-        self.username = username
+    def __init__(self, start_name, start_username):
+        self.name = start_name
+        self.username = start_username
         self.wincount = 0
         self.losscount = 0
         self.winratio = 0.0
