@@ -40,10 +40,9 @@ class ReadXML:
         for play_info in plays_info:
             self.play_count = int(play_info.attributes['total'].value)
 
-        plays = self._dom.getElementsByTagName("play")
-        for playy in plays:
-            playsdataset = self._read_xml_plays(playy)
-            self._read_xml_players(playy, playsdataset)
+        for play in self._dom.getElementsByTagName("play"):
+            playsdataset = self._read_xml_plays(play)
+            self._read_xml_players(play, playsdataset)
             self.plays.append(playsdataset)
 
     def read_xml_all(self, filename, countto):
@@ -93,9 +92,9 @@ if __name__ == "__main__":
 
     for play in read.plays:
         print("Name: " + play.gamename)
-        """ #print "Username: " + player.username
-        print "Name: " + player.name
-        print "Wins: " + str(player.wincount)
-        print "Loss: " + str(player.losscount)
-        print "Total Games Played: " + str(player.wincount + player.losscount)
+        """ print f'Username: {player.username}'
+        print f'Name: {player.name}'
+        print f'Wins: {str(player.wincount)}'
+        print f'Loss: {str(player.losscount)}'
+        print f'Total Games Played: {str(player.wincount}} {str(player.losscount)}'
         print """

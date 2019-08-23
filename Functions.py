@@ -25,7 +25,7 @@ sys.path.append('BGGModule.zip')
 def play_count(username, pagesize):
     filename = "totalplays.xml"
     path = os.path.join(os.getcwd(), filename)
-    url = f'http://www.boardgamegeek.com/xmlapi2/plays?username=${username}&pagesize=10'
+    url = f'http://www.boardgamegeek.com/xmlapi2/plays?username={username}&pagesize=10'
     if os.path.isfile(path) is False:
         download_xml = DownloadXML(url, filename)
         download_xml.download()

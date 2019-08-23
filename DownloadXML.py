@@ -19,12 +19,18 @@ import time
 
 
 class DownloadXML:
-    def __init__(self, urll=None, filename=None):
+    def __init__(self, start_url=None, start_filename=None):
         """init the variables"""
-        self.url = urll
-        self.filename = filename
+        self.url = start_url
+        self.filename = start_filename
 
     def download(self, urll=None, filename=None):
+        """
+
+        :param urll: web url to download the xml files from.
+        :param filename: the filename  for the xml files.
+        :return:
+        """
         if urll is None:
             urll = self.url
         if filename is None:
