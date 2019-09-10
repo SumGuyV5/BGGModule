@@ -14,12 +14,9 @@
 **		    see license.txt for for details	        **
 ***************************************************************"""
 import os
-import sys
 import math
 from BGGModule.ReadXML import ReadXML
 from BGGModule.DownloadXML import DownloadXML
-
-sys.path.append('BGGModule.zip')
 
 
 def play_count(username, pagesize):

@@ -13,10 +13,7 @@
 **  License:	    GNU GENERAL PUBLIC LICENSE Version 2	**
 **		    see license.txt for for details	        **
 ***************************************************************"""
-import sys
 import datetime
-
-sys.path.append('BGGModule.zip')
 
 
 class PlaysDataset:

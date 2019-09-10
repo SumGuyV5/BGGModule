@@ -13,9 +13,6 @@
 **  License:	    GNU GENERAL PUBLIC LICENSE Version 2	**
 **		    see license.txt for for details	        **
 ***************************************************************"""
-import sys
-
-sys.path.append('BGGModule.zip')
 
 
 class PlayerInfo:
@@ -28,21 +25,63 @@ class PlayerInfo:
         self.winpercentage = 0.0
         self.gameinfo = []
         self.hIndex = 0
-        self.winGameInfo = object()
-        self.lossGameInfo = object()
+        self.winGameInfo = None
+        self.lossGameInfo = None
+        self.points = 0
 
-    def load_game_info(self):
+    def win_ratio(self):
+        """
+        This calculates the loss ratio.
+        :return:
+        """
+        if (self.wincount != 0) and (self.losscount != 0):
+            self.winratio = round(float(self.losscount) / float(self.wincount), 2)
+
+    def win_percentage(self):
+        """
+        This calculates the percentage of wins to losses.
+        :return:
+        """
+        total = self.wincount + self.losscount
+        self.winpercentage = 100 * float(self.wincount) / float(total)
+
+    def win_info(self):
+        """
+        This finds out what game you have the most wins in.
+        :return:
+        """
         self.gameinfo = sorted(self.gameinfo, key=lambda gameinfo: gameinfo.win, reverse=True)
         self.winGameInfo = self.gameinfo[0]
+
+    def loss_info(self):
+        """
+        This finds out what game you have the most losses in.
+        :return:
+        """
         self.gameinfo = sorted(self.gameinfo, key=lambda gameinfo: gameinfo.loss, reverse=True)
         self.lossGameInfo = self.gameinfo[0]
+
+    def h_index(self):
+        """
+        This is finds out your h-index.
+        :return:
+        """
         self.gameinfo = sorted(self.gameinfo, key=lambda gameinfo: gameinfo.count, reverse=True)
-        count = 0
-        while count < self.gameinfo.__len__():
-            if self.gameinfo[count].count <= count:
+        for idx, info in enumerate(self.gameinfo):
+            if info.count <= idx:
+                self.hIndex = idx
                 break
-            count += 1
-        self.hIndex = count
+
+    def load_game_info(self):
+        """
+        This method finds out how many games you have won, lost and your h-index
+        :return:
+        """
+        self.win_ratio()
+        self.win_percentage()
+        self.win_info()
+        self.loss_info()
+        self.h_index()
 
 
 if __name__ == "__main__":

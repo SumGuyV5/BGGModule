@@ -14,14 +14,9 @@
 **		    see license.txt for for details	        **
 ***************************************************************"""
 import os
-import sys
-
 from BGGModule.PlaysDataset import PlaysDataset
 from BGGModule.PlayerDataset import PlayerDataset
-
 from xml.dom.minidom import parse
-
-sys.path.append('BGGModule.zip')
 
 
 class ReadXML:
