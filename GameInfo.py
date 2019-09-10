@@ -13,9 +13,6 @@
 **  License:	    GNU GENERAL PUBLIC LICENSE Version 2	**
 **		    see license.txt for for details	        **
 ***************************************************************"""
-import sys
-
-sys.path.append('BGGModule.zip')
 
 
 class GameInfo:
