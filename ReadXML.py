@@ -29,15 +29,15 @@ class ReadXML:
         try:
             self._dom = parse(filename)
         except IOError:
-            print(f'File IO Error on file name {filename}')
+            print(f'File IO Error on file name {filename}.')
 
         plays_info = self._dom.getElementsByTagName("plays")
         for play_info in plays_info:
             self.play_count = int(play_info.attributes['total'].value)
 
-        for play in self._dom.getElementsByTagName("play"):
-            plays_dataset = self._read_xml_plays(play)
-            self._read_xml_players(play, plays_dataset)
+        for play_tag in self._dom.getElementsByTagName("play"):
+            plays_dataset = self._read_xml_plays(play_tag)
+            self._read_xml_players(play_tag, plays_dataset)
             self.plays.append(plays_dataset)
 
     def read_xml_all(self, filename, count_to):
@@ -75,6 +75,10 @@ class ReadXML:
         rtn.colour = player.attributes['color'].value
         rtn.win = bool(int(player.attributes['win'].value))
         rtn.new = bool(int(player.attributes['new'].value))
+        try:
+            rtn.points = int(player.attributes['score'].value)
+        except ValueError:
+            pass
 
         return rtn
 
@@ -86,7 +90,7 @@ if __name__ == "__main__":
     read.read_xml_file(os.path.join(os.getcwd(), 'plays.xml'))
 
     for play in read.plays:
-        print("Name: " + play.gamename)
+        print(f'Name: {play.gamename}')
         """ print f'Username: {player.username}'
         print f'Name: {player.name}'
         print f'Wins: {str(player.wincount)}'

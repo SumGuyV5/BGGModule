@@ -19,22 +19,10 @@ class PlayerInfo:
     def __init__(self, start_name, start_username):
         self.name = start_name
         self.username = start_username
-        self.wincount = 0
-        self.losscount = 0
-        self.winratio = 0.0
-        self.gameinfo = []
-        self.hIndex = 0
-        self.winGameInfo = None
-        self.lossGameInfo = None
+        self.win_count = 0
+        self.loss_count = 0
+        self.__games_info = []
         self.points = 0
-
-    def win_ratio(self):
-        """
-        This calculates the loss ratio.
-        :return:
-        """
-        if (self.wincount != 0) and (self.losscount != 0):
-            self.winratio = round(float(self.losscount) / float(self.wincount), 2)
 
     @property
     def win_percentage(self):
@@ -42,45 +30,63 @@ class PlayerInfo:
         This calculates the percentage of wins to losses.
         :return:
         """
-        return 100 * float(self.wincount) / float(self.wincount + self.losscount)
+        return 100 * float(self.win_count) / float(self.win_count + self.loss_count)
 
+    @property
     def win_info(self):
         """
         This finds out what game you have the most wins in.
         :return:
         """
-        self.gameinfo = sorted(self.gameinfo, key=lambda gameinfo: gameinfo.win, reverse=True)
-        self.winGameInfo = self.gameinfo[0]
+        try:
+            val = sorted(self.games_info, key=lambda games_info: games_info.win, reverse=True)[0]
+        except IndexError:
+            return None
+        return val
 
+    @property
     def loss_info(self):
         """
         This finds out what game you have the most losses in.
         :return:
         """
-        self.gameinfo = sorted(self.gameinfo, key=lambda gameinfo: gameinfo.loss, reverse=True)
-        self.lossGameInfo = self.gameinfo[0]
+        try:
+            val = sorted(self.games_info, key=lambda games_info: games_info.loss, reverse=True)[0]
+        except IndexError:
+            return None
+        return val
 
+    @property
+    def win_ratio(self):
+        """
+        This calculates the loss ratio.
+        :return:
+        """
+        val = 0.0
+        if (self.win_count != 0) and (self.loss_count != 0):
+            val = round(float(self.loss_count) / float(self.win_count), 2)
+        return val
+
+    @property
+    def games_info(self):
+        return self.__games_info
+
+    @games_info.setter
+    def games_info(self, val):
+        self.__games_info = val
+
+    @property
     def h_index(self):
         """
         This is finds out your h-index.
         :return:
         """
-        self.gameinfo = sorted(self.gameinfo, key=lambda gameinfo: gameinfo.count, reverse=True)
-        for idx, info in enumerate(self.gameinfo):
+        val = 0
+        for idx, info in enumerate(sorted(self.games_info, key=lambda games_info: games_info.count, reverse=True)):
             if info.count <= idx:
-                self.hIndex = idx
+                val = idx
                 break
-
-    def load_game_info(self):
-        """
-        This method finds out how many games you have won, lost and your h-index
-        :return:
-        """
-        self.win_ratio()
-        self.win_percentage()
-        self.win_info()
-        self.loss_info()
-        self.h_index()
+        return val
 
 
 if __name__ == "__main__":

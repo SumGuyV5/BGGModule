@@ -38,7 +38,7 @@ def play_count(username, pagesize):
 def new_download():
     filename = "totalplays.xml"
     path = os.path.join(os.getcwd(), filename)
-    if os.path.isfile(path) is False:
+    if os.path.isfile(path):
         file_time = time.ctime(os.path.getmtime(path))
         file_time = datetime.datetime.strptime(file_time, "%a %b %d %H:%M:%S %Y")
         now = datetime.datetime.now()

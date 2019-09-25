@@ -22,6 +22,7 @@ class PlayerDataset:
         self.colour = ""
         self.new = False
         self.win = False
+        self.score = 0
 
 
 if __name__ == "__main__":
