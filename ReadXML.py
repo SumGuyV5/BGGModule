@@ -36,15 +36,15 @@ class ReadXML:
             self.play_count = int(play_info.attributes['total'].value)
 
         for play in self._dom.getElementsByTagName("play"):
-            playsdataset = self._read_xml_plays(play)
-            self._read_xml_players(play, playsdataset)
-            self.plays.append(playsdataset)
+            plays_dataset = self._read_xml_plays(play)
+            self._read_xml_players(play, plays_dataset)
+            self.plays.append(plays_dataset)
 
-    def read_xml_all(self, filename, countto):
+    def read_xml_all(self, filename, count_to):
         """Filename only no extension."""
         print("Reading All XML files...")
-        for i in range(1, countto + 1):
-            self.read_xml_file(filename + str(i) + ".xml")
+        for i in range(1, count_to + 1):
+            self.read_xml_file(f'{filename}{str(i)}.xml')
         print("Done Reading All XML files...")
 
     @staticmethod
@@ -54,18 +54,18 @@ class ReadXML:
         rtn.length = int(dom.attributes['length'].value)
         rtn.location = dom.attributes['location'].value
         rtn.incomplete = int(dom.attributes['incomplete'].value)
-        rtn.nowinstate = int(dom.attributes['nowinstats'].value)
+        rtn.now_in_state = int(dom.attributes['nowinstats'].value)
         rtn.date(dom.attributes['date'].value)
         items = dom.getElementsByTagName("item")
         for item in items:
-            rtn.gamename = item.attributes['name'].value
+            rtn.game_name = item.attributes['name'].value
 
         return rtn
 
-    def _read_xml_players(self, dom, playsdataset):
+    def _read_xml_players(self, dom, plays_dataset):
         players = dom.getElementsByTagName("player")
         for player in players:
-            playsdataset.add_player(self._load_players(player))
+            plays_dataset.add_player(self._load_players(player))
 
     @staticmethod
     def _load_players(player):

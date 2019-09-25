@@ -19,11 +19,11 @@ import datetime
 class PlaysDataset:
     def __init__(self):
         self.id = 0
-        self.gamename = ""
+        self.game_name = ""
         self.length = 0
         self.location = ""
         self.incomplete = 0
-        self.nowinstate = 0
+        self.now_in_state = 0
         self.players = []
         self._date = datetime.date.today()
 

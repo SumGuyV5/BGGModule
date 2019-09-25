@@ -22,7 +22,6 @@ class PlayerInfo:
         self.wincount = 0
         self.losscount = 0
         self.winratio = 0.0
-        self.winpercentage = 0.0
         self.gameinfo = []
         self.hIndex = 0
         self.winGameInfo = None
@@ -37,13 +36,13 @@ class PlayerInfo:
         if (self.wincount != 0) and (self.losscount != 0):
             self.winratio = round(float(self.losscount) / float(self.wincount), 2)
 
+    @property
     def win_percentage(self):
         """
         This calculates the percentage of wins to losses.
         :return:
         """
-        total = self.wincount + self.losscount
-        self.winpercentage = 100 * float(self.wincount) / float(total)
+        return 100 * float(self.wincount) / float(self.wincount + self.losscount)
 
     def win_info(self):
         """

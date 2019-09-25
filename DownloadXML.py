@@ -23,35 +23,35 @@ class DownloadXML:
         self.url = start_url
         self.filename = start_filename
 
-    def download(self, urll=None, filename=None):
+    def download(self, download_url=None, filename=None):
         """
 
-        :param urll: web url to download the xml files from.
+        :param download_url: web url to download the xml files from.
         :param filename: the filename  for the xml files.
         :return:
         """
-        if urll is None:
-            urll = self.url
+        if download_url is None:
+            download_url = self.url
         if filename is None:
             filename = self.filename
 
         time.sleep(2)
         print("Download Starting!")
-        print(urll)
-        urlretrieve(urll, filename)
+        print(download_url)
+        urlretrieve(download_url, filename)
         print("Download Complete!")
 
-    def download_all(self, urll, filename, countto):
+    def download_all(self, download_url, filename, count_to):
         """
 
-        :param urll: web url to download the xml files from.
+        :param download_url: web url to download the xml files from.
         :param filename: the filename for the xml files, don't add .xml extension.
-        :param countto: how many xml files to download
+        :param count_to: how many xml files to download
         :return:
         """
         print("Download All Starting!")
-        for i in range(1, countto + 1):
-            self.download(urll + str(i), filename + str(i) + ".xml")
+        for i in range(1, count_to + 1):
+            self.download(download_url + str(i), filename + str(i) + ".xml")
         print("Download All Complete!")
 
 
