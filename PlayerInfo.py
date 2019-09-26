@@ -88,6 +88,10 @@ class PlayerInfo:
                 break
         return val
 
+    @property
+    def points_per_game(self):
+        return round(self.points / len(self.__games_info), 2)
+
 
 if __name__ == "__main__":
     pass
