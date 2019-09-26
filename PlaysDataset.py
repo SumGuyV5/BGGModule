@@ -56,11 +56,10 @@ class PlaysDataset:
             if player.score == 0:
                 if player.win:
                     score = len(self.players) - winners_count
+            elif player.win:
+                score = len(self.players) - winners_count
             else:
-                if player.win:
-                    score = len(self.players) - winners_count
-                else:
-                    score = idx
+                score = idx
 
             val[player.name] = score
 
@@ -139,16 +138,13 @@ def one_winner_no_score():
     player_w.name = "Winner"
     player_w.win = True
 
-
     player1 = PlayerDataset()
     player1.name = "Player 1"
     player1.win = False
 
-
     player2 = PlayerDataset()
     player2.name = "Player 2"
     player2.win = False
-
 
     player3 = PlayerDataset()
     player3.name = "Player 3"
@@ -189,11 +185,10 @@ def two_winner_no_score():
 
     return plays_dataset
 
+
 if __name__ == "__main__":
 
-
     tmp = one_winner()
-
 
     print(tmp.points())
 
