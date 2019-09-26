@@ -16,6 +16,8 @@
 import os
 from BGGModule.PlaysDataset import PlaysDataset
 from BGGModule.PlayerDataset import PlayerDataset
+from BGGModule.PlayerInfo import PlayerInfo
+from BGGModule.GameInfo import GameInfo
 from xml.dom.minidom import parse
 
 
@@ -24,6 +26,7 @@ class ReadXML:
         self._dom = object
         self.play_count = 0
         self.plays = []
+        self.players_info = []
 
     def read_xml_file(self, filename):
         try:
@@ -81,6 +84,45 @@ class ReadXML:
             pass
 
         return rtn
+
+    def load_info(self):
+        self.players_info = []
+        for single_play in self.plays:
+            if (single_play.incomplete == 0) and (single_play.now_in_state == 0):
+                players_points = single_play.points()
+                for player in single_play.players:
+                    if self._add_player(player.username, player.name, player.win, single_play.game_name,
+                                        players_points[player.name]) is False:
+                        print("Error Player not found!")
+        return self.players_info
+
+    def _add_player(self, username, name, win, game_name, points):
+        found = False
+        for player_info in self.players_info:
+            if (player_info.username == username) and (player_info.name == name):
+                found = True
+                self._add_game_info(game_name, win, player_info)
+                if win is True:
+                    player_info.win_count += 1
+                else:
+                    player_info.loss_count += 1
+                player_info.points += points
+        if found is False:
+            self.players_info.append(PlayerInfo(name, username))
+            found = self._add_player(username, name, win, game_name, points)
+
+        return found
+
+    def _add_game_info(self, name, win, player_info):
+        found = False
+        for game_info in player_info.games_info:
+            if game_info.name == name:
+                found = True
+                game_info.add_count(win)
+        if found is False:
+            player_info.games_info.append(GameInfo(name))
+            found = self._add_game_info(name, win, player_info)
+        return found
 
 
 if __name__ == "__main__":
