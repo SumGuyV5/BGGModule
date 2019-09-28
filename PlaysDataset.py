@@ -43,7 +43,7 @@ class PlaysDataset:
     def winners_count(self):
         val = 0
         for player in self.players:
-            if player.win:
+            if player.won:
                 val += 1
         return val
 
@@ -54,9 +54,9 @@ class PlaysDataset:
         for idx, player in enumerate(sorted(self.players, key=lambda players: players.score, reverse=False)):
             score = 0
             if player.score == 0:
-                if player.win:
+                if player.won:
                     score = len(self.players) - winners_count
-            elif player.win:
+            elif player.won:
                 score = len(self.players) - winners_count
             else:
                 score = idx
@@ -72,22 +72,22 @@ def one_winner():
 
     player_w = PlayerDataset()
     player_w.name = "Winner"
-    player_w.win = True
+    player_w.won = True
     player_w.score = 10
 
     player1 = PlayerDataset()
     player1.name = "Player 1"
-    player1.win = False
+    player1.won = False
     player1.score = 9
 
     player2 = PlayerDataset()
     player2.name = "Player 2"
-    player2.win = False
+    player2.won = False
     player2.score = 8
 
     player3 = PlayerDataset()
     player3.name = "Player 3"
-    player3.win = False
+    player3.won = False
     player3.score = 1
 
     plays_dataset.add_player(player_w)
@@ -104,22 +104,22 @@ def two_winners():
 
     player_w = PlayerDataset()
     player_w.name = "Winner"
-    player_w.win = True
+    player_w.won = True
     player_w.score = 10
 
     player1 = PlayerDataset()
     player1.name = "Player 1"
-    player1.win = True
+    player1.won = True
     player1.score = 10
 
     player2 = PlayerDataset()
     player2.name = "Player 2"
-    player2.win = False
+    player2.won = False
     player2.score = 8
 
     player3 = PlayerDataset()
     player3.name = "Player 3"
-    player3.win = False
+    player3.won = False
     player3.score = 1
 
     plays_dataset.add_player(player_w)
@@ -136,19 +136,19 @@ def one_winner_no_score():
 
     player_w = PlayerDataset()
     player_w.name = "Winner"
-    player_w.win = True
+    player_w.won = True
 
     player1 = PlayerDataset()
     player1.name = "Player 1"
-    player1.win = False
+    player1.won = False
 
     player2 = PlayerDataset()
     player2.name = "Player 2"
-    player2.win = False
+    player2.won = False
 
     player3 = PlayerDataset()
     player3.name = "Player 3"
-    player3.win = False
+    player3.won = False
 
     plays_dataset.add_player(player_w)
     plays_dataset.add_player(player1)
@@ -164,19 +164,19 @@ def two_winner_no_score():
 
     player_w = PlayerDataset()
     player_w.name = "Winner"
-    player_w.win = True
+    player_w.won = True
 
     player1 = PlayerDataset()
     player1.name = "Player 1"
-    player1.win = True
+    player1.won = True
 
     player2 = PlayerDataset()
     player2.name = "Player 2"
-    player2.win = False
+    player2.won = False
 
     player3 = PlayerDataset()
     player3.name = "Player 3"
-    player3.win = False
+    player3.won = False
 
     plays_dataset.add_player(player_w)
     plays_dataset.add_player(player1)

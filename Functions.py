@@ -30,12 +30,11 @@ def play_count(username, pagesize):
         download_xml.download()
 
     read_xml = ReadXML()
-    print(path)
     read_xml.read_xml_file(path)
     return math.ceil(read_xml.play_count / float(pagesize))
 
 
-def new_download():
+def new_download(day_diff=1):
     filename = "totalplays.xml"
     path = os.path.join(os.getcwd(), filename)
     if os.path.isfile(path):
@@ -43,6 +42,8 @@ def new_download():
         file_time = datetime.datetime.strptime(file_time, "%a %b %d %H:%M:%S %Y")
         now = datetime.datetime.now()
         diff = now - file_time
-        if diff.days >= 1:
+        if diff.days >= day_diff:
             return True
+    else:
+        return True
     return False

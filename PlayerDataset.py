@@ -21,7 +21,7 @@ class PlayerDataset:
         self.name = ""
         self.colour = ""
         self.new = False
-        self.win = False
+        self.won = False
         self.score = 0
 
 

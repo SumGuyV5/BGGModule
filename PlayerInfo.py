@@ -24,6 +24,12 @@ class PlayerInfo:
         self.__games_info = []
         self.points = 0
 
+    def add_count(self, won):
+        if won:
+            self.win_count += 1
+        else:
+            self.loss_count += 1
+
     @property
     def win_percentage(self):
         """
@@ -91,6 +97,10 @@ class PlayerInfo:
     @property
     def points_per_game(self):
         return round(self.points / len(self.__games_info), 2)
+
+    @property
+    def total_games(self):
+        return self.win_count + self.loss_count
 
 
 if __name__ == "__main__":
