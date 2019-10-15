@@ -28,6 +28,28 @@ class PlayerXMLDataset:
         self.rating = rating
         self.win = win
 
+    def __eq__(self, other):
+        return self.username == other.username and \
+               self.userid == other.userid and \
+               self.name == other.name and \
+               self.startposition == other.startposition and \
+               self.colour == other.colour and \
+               self.score == other.score and \
+               self.new == other.new and \
+               self.rating == other.rating and \
+               self.win == other.win
+
+    def __ne__(self, other):
+        return self.username != other.username or \
+               self.userid != other.userid or \
+               self.name != other.name or \
+               self.startposition != other.startposition or \
+               self.colour != other.colour or \
+               self.score != other.score or \
+               self.new != other.new or \
+               self.rating != other.rating or \
+               self.win != other.win
+
     @property
     def score(self):
         return self.__score
