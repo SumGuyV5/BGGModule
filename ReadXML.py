@@ -29,6 +29,7 @@ class ReadXML:
             self.__dom = parse(filename)
         except IOError:
             print(f'File IO Error on file name {filename}.')
+            return
 
         plays_info = self.__dom.getElementsByTagName("plays")
         for play_info in plays_info:
