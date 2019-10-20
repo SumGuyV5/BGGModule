@@ -16,12 +16,12 @@
 
 
 class PlayerXMLDataset:
-    def __init__(self, username="", userid="", name="", startposition=0, colour="", score=0, new=False, rating=0,
+    def __init__(self, username="", userid="", name="", position=0, colour="", score=0, new=False, rating=0,
                  win=False):
         self.username = username
         self.userid = userid
         self.name = name
-        self.startposition = startposition
+        self.position = position
         self.colour = colour
         self.score = score
         self.new = new
@@ -32,7 +32,7 @@ class PlayerXMLDataset:
         return self.username == other.username and \
                self.userid == other.userid and \
                self.name == other.name and \
-               self.startposition == other.startposition and \
+               self.position == other.position and \
                self.colour == other.colour and \
                self.score == other.score and \
                self.new == other.new and \
@@ -43,12 +43,20 @@ class PlayerXMLDataset:
         return self.username != other.username or \
                self.userid != other.userid or \
                self.name != other.name or \
-               self.startposition != other.startposition or \
+               self.position != other.position or \
                self.colour != other.colour or \
                self.score != other.score or \
                self.new != other.new or \
                self.rating != other.rating or \
                self.win != other.win
+
+    @property
+    def color(self):
+        return self.colour
+
+    @color.setter
+    def color(self, val):
+        self.color = val
 
     @property
     def score(self):

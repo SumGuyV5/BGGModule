@@ -88,10 +88,7 @@ class PlaysXMLDataset:
         self.players.append(player)
 
     def find_player_by_name(self, name):
-        for idx, player in enumerate(self.players):
-            if player.name == name:
-                return idx
-        return -1
+        return next((x for x in self.players if x.name == name), None)
 
     def winners_count(self):
         val = 0

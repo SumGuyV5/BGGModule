@@ -80,7 +80,7 @@ class ReadXML:
         rtn.userid = int(player.attributes['userid'].value)
         rtn.name = player.attributes['name'].value
         try:
-            rtn.startposition = int(player.attributes['startposition'].value)
+            rtn.position = int(player.attributes['startposition'].value)
         except ValueError:
             pass
         rtn.colour = player.attributes['color'].value
